@@ -12,7 +12,7 @@ Order port numbers, ex:
 """
 
 # CAN
-
+moteur_inclinator = 5
 # PWM
 
 # DIO
