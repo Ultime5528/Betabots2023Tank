@@ -14,7 +14,6 @@ class Robot(commands2.TimedCommandRobot):
         self.autoChooser = wpilib.SendableChooser()
         self.launcher = Launcher()
         self.stick = wpilib.Joystick(0)
-        JoystickButton(self.stick, 1).whenPressed((Launch(self.launcher)))
         self.autoCommand: Optional[commands2.CommandBase] = None
 
     def autonomousInit(self) -> None:
