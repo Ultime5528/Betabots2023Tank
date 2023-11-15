@@ -15,19 +15,9 @@ class Robot(commands2.TimedCommandRobot):
         super().__init__()
         self.stick = CommandJoystick(0)
         self.drivetrain = Drivetrain()
-        self.autoChooser = wpilib.SendableChooser()
-        self.autoCommand = None
 
         self.drivetrain.setDefaultCommand(Drive(self.drivetrain, self.stick))
 
-    def autonomousInit(self) -> None:
-        self.autoCommand: commands2.CommandBase = self.autoChooser.getSelected()
-        if self.autoCommand:
-            self.autoCommand.schedule()
-
-    def teleopInit(self) -> None:
-        if self.autoCommand:
-            self.autoCommand.cancel()
 
 
 if __name__ == "__main__":

@@ -10,13 +10,16 @@ from utils.sparkmaxutils import configureLeader, configureFollower
 class Drivetrain(SafeSubsystem):
     def __init__(self):
         super().__init__()
-        self._motor_left = rev.CANSparkMax(3, rev.CANSparkMax.MotorType.kBrushless)
+
+        self._motor_left = rev.CANSparkMax(4, rev.CANSparkMax.MotorType.kBrushless)
         configureLeader(self._motor_left, "brake")
 
-        self._motor_left_follower = rev.CANSparkMax(4, rev.CANSparkMax.MotorType.kBrushless)
+        self._motor_left_follower = rev.CANSparkMax(3, rev.CANSparkMax.MotorType.kBrushless)
         configureFollower(self._motor_left_follower, self._motor_left, "brake")
+
         self._motor_right = rev.CANSparkMax(1, rev.CANSparkMax.MotorType.kBrushless)
         configureLeader(self._motor_right, "brake", True)
+
         self._motor_right_follower = rev.CANSparkMax(2, rev.CANSparkMax.MotorType.kBrushless)
         configureFollower(self._motor_right_follower, self._motor_right, "brake")
 
