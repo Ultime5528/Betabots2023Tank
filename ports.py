@@ -12,9 +12,9 @@ Order port numbers, ex:
 """
 
 # CAN
-moteur_inclinator = 5
+inclinator_motor = 5
 # PWM
 
 # DIO
-
+inclinator_limitswitch = 0
 # PCM
