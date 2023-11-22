@@ -1,6 +1,7 @@
 from utils.safecommand import SafeCommand
 from subsystems.inclinator import Inclinator
 
+#this command aims for the highest flower
 class MoveToZero(SafeCommand):
     def __init__(self, inclinator: Inclinator):
         super().__init__()

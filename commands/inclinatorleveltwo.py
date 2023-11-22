@@ -2,6 +2,7 @@ from utils.safecommand import SafeCommand
 from subsystems.inclinator import Inclinator
 from utils.property import autoproperty
 
+#this command aims for the lower flowers
 class MoveToLevelTwo(SafeCommand):
     two_encoder_value = autoproperty(20)
     interval = autoproperty(1)
