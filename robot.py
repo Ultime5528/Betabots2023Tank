@@ -7,6 +7,7 @@ import wpilib
 from commands2._impl.button import JoystickButton
 
 from commands.Inclinatorzero import MoveToZero
+from commands.inclinatorlevelone import MoveToLevelOne
 from subsystems.inclinator import Inclinator
 
 
@@ -20,6 +21,8 @@ class Robot(commands2.TimedCommandRobot):
 
         self.inclinator = Inclinator()
         self.stick = wpilib.Joystick(0)
+        JoystickButton(self.stick, 1).whenPressed(MoveToLevelOne(self.inclinator))
+        JoystickButton(self.stick, 2).whenPressed(MoveToZero(self.inclinator))
 
     def autonomousInit(self) -> None:
         self.autoCommand: commands2.CommandBase = self.autoChooser.getSelected()

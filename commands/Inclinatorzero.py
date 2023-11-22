@@ -1,4 +1,3 @@
-import wpilib
 from utils.safecommand import SafeCommand
 from subsystems.inclinator import Inclinator
 
@@ -11,8 +10,11 @@ class MoveToZero(SafeCommand):
     def execute(self):
         self.inclinator.moveDown()
 
+        self.inclinator.updateEncoderPosition()
+
     def isFinished(self) -> bool:
         return self.inclinator.getLimitswitchValue()
 
     def end(self, interrupted: bool):
+        self.inclinator.resetEncoderPosition()
         self.inclinator.stop()
