@@ -2,8 +2,8 @@ from utils.safecommand import SafeCommand
 from subsystems.inclinator import Inclinator
 from utils.property import autoproperty
 
-class MoveToLevelOne(SafeCommand):
-    one_encoder_value = autoproperty(10)
+class MoveToLevelTwo(SafeCommand):
+    two_encoder_value = autoproperty(20)
     interval = autoproperty(1)
     def __init__(self, inclinator: Inclinator):
         super().__init__()
@@ -11,9 +11,9 @@ class MoveToLevelOne(SafeCommand):
         self.addRequirements(self.inclinator)
 
     def execute(self):
-        if(self.one_encoder_value < self.inclinator.getEncoderPosition()):
+        if (self.two_encoder_value < self.inclinator.getEncoderPosition()):
             self.inclinator.moveDown()
-        elif(self.one_encoder_value > self.inclinator.getEncoderPosition()):
+        elif (self.two_encoder_value > self.inclinator.getEncoderPosition()):
             self.inclinator.moveUp()
         else:
             self.inclinator.stop()
@@ -21,7 +21,8 @@ class MoveToLevelOne(SafeCommand):
         self.inclinator.updateEncoderPosition()
 
     def isFinished(self) -> bool:
-        return self.isBetweenValues(self.one_encoder_value - self.interval, self.one_encoder_value + self.interval, self.inclinator.getEncoderPosition())
+        return self.isBetweenValues(self.two_encoder_value - self.interval, self.two_encoder_value + self.interval,
+                                    self.inclinator.getEncoderPosition())
 
     def end(self, interrupted: bool):
         self.inclinator.stop()
