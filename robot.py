@@ -6,10 +6,9 @@ import commands2
 import wpilib
 from commands2._impl.button import JoystickButton
 
-from commands.Inclinatorzero import MoveToZero
-from commands.inclinatorlevelone import MoveToLevelOne
-from commands.inclinatorleveltwo import MoveToLevelTwo
-from subsystems.inclinator import Inclinator
+from commands.resetarm import ResetArm
+from commands.movearm import MoveArm
+from subsystems.arm import Arm
 
 
 
@@ -20,11 +19,11 @@ class Robot(commands2.TimedCommandRobot):
         self.autoChooser = wpilib.SendableChooser()
         self.autoCommand: Optional[commands2.CommandBase] = None
 
-        self.inclinator = Inclinator()
+        self.inclinator = Arm()
         self.stick = wpilib.Joystick(0)
-        JoystickButton(self.stick, 1).whenPressed(MoveToLevelOne(self.inclinator))
-        JoystickButton(self.stick, 2).whenPressed(MoveToZero(self.inclinator))
-        JoystickButton(self.stick, 3).whenPressed(MoveToLevelTwo(self.inclinator))
+        JoystickButton(self.stick, 1).whenPressed(MoveArm(self.inclinator, 10))
+        JoystickButton(self.stick, 3).whenPressed(MoveArm(self.inclinator, 20))
+        JoystickButton(self.stick, 2).whenPressed(ResetArm(self.inclinator))
 
 
     def autonomousInit(self) -> None:
@@ -38,7 +37,6 @@ class Robot(commands2.TimedCommandRobot):
 
     def robotPeriodic(self) -> None:
         super().robotPeriodic()
-
 
 if __name__ == "__main__":
     wpilib.run(Robot)

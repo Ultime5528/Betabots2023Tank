@@ -7,7 +7,7 @@ import ports
 from utils.sparkmaxsim import SparkMaxSim
 
 
-class Inclinator(SafeSubsystem):
+class Arm(SafeSubsystem):
 
     def __init__(self):
         super().__init__()
@@ -22,33 +22,21 @@ class Inclinator(SafeSubsystem):
     def moveUp(self):
         self.motor.set(1)
 
-        if RobotBase.isSimulation():
-            self.sim_motor.setVelocity(1)
-
     def moveDown(self):
         self.motor.set(-1)
-
-        if RobotBase.isSimulation():
-            self.sim_motor.setVelocity(-1)
 
     def stop(self):
         self.motor.stopMotor()
 
-        if RobotBase.isSimulation():
-            self.sim_motor.setVelocity(0)
-
-    def getLimitswitchValue(self):
+    def is_down(self):
         return self.switch.get()
 
-    def getEncoderPosition(self):
-        if RobotBase.isSimulation():
-            return self.encoder.getPosition()
-        else:
-            return self.encoder.getPosition()
-
-    def updateEncoderPosition(self):
-        if RobotBase.isSimulation():
-            self.encoder.setPosition(self.encoder.getPosition() + self.encoder.getVelocity())
+    def get_position(self):
+        return self.encoder.getPosition()
 
     def resetEncoderPosition(self):
         self.encoder.setPosition(0)
+
+    def simulationPeriodic(self):
+        self.sim_motor.setVelocity(self.motor.get())
+        self.sim_motor.setPosition(self.sim_motor.getPosition() + self.motor.get())
