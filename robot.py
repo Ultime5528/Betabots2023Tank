@@ -3,17 +3,12 @@ import math
 from typing import Optional
 import commands2
 import wpilib
-from commands2._impl.button import JoystickButton
-from subsystems.launcher import Launcher
-from commands.launch import Launch
 
 
 class Robot(commands2.TimedCommandRobot):
     def robotInit(self):
         #self.stick = commands2.button.CommandJoystick(0)
         self.autoChooser = wpilib.SendableChooser()
-        self.launcher = Launcher()
-        self.stick = wpilib.Joystick(0)
         self.autoCommand: Optional[commands2.CommandBase] = None
 
     def autonomousInit(self) -> None:
@@ -24,10 +19,6 @@ class Robot(commands2.TimedCommandRobot):
     def teleopInit(self) -> None:
         if self.autoCommand:
             self.autoCommand.cancel()
-
-    def robotPeriodic(self) -> None:
-        super().robotPeriodic()
-
 
 
 if __name__ == "__main__":

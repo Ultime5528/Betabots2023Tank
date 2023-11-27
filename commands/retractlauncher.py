@@ -4,7 +4,7 @@ from subsystems.launcher import Launcher
 from utils.property import autoproperty
 
 
-class Retract(SafeCommand):
+class RetractLauncher(SafeCommand):
     duration = autoproperty(0.5)
 
     def __init__(self, launcher: Launcher):
@@ -18,7 +18,7 @@ class Retract(SafeCommand):
         self.timer.start()
 
     def execute(self) -> None:
-        self.launcher.down_position()
+        self.launcher.retract()
 
     def isFinished(self) -> bool:
         return self.timer.get() >= self.duration

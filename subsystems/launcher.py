@@ -13,10 +13,10 @@ class Launcher(SafeSubsystem):
         )
         self.addChild("piston", self.piston)
 
-    def moveUpPosition(self):
+    def extend(self):
         self.piston.set(wpilib.DoubleSolenoid.Value.kForward)
 
-    def moveDownPosition(self):
+    def retract(self):
         self.piston.set(wpilib.DoubleSolenoid.Value.kReverse)
 
     def stop(self):

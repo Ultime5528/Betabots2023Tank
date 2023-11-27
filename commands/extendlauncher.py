@@ -4,7 +4,7 @@ from subsystems.launcher import Launcher
 from utils.property import autoproperty
 
 
-class Extend(SafeCommand):
+class ExtendLauncher(SafeCommand):
     duration = autoproperty(0.5)
 
     def __init__(self, launcher: Launcher):
@@ -18,7 +18,7 @@ class Extend(SafeCommand):
         self.timer.start()
 
     def execute(self) -> None:
-        self.launcher.up_position()
+        self.launcher.extend()
 
     def isFinished(self) -> bool:
         return self.timer.get() >= self.duration
