@@ -19,11 +19,11 @@ class Robot(commands2.TimedCommandRobot):
         self.autoChooser = wpilib.SendableChooser()
         self.autoCommand: Optional[commands2.CommandBase] = None
 
-        self.inclinator = Arm()
+        self.arm = Arm()
         self.stick = wpilib.Joystick(0)
-        JoystickButton(self.stick, 1).whenPressed(MoveArm(self.inclinator, 10))
-        JoystickButton(self.stick, 3).whenPressed(MoveArm(self.inclinator, 20))
-        JoystickButton(self.stick, 2).whenPressed(ResetArm(self.inclinator))
+        JoystickButton(self.stick, 1).whenPressed(MoveArm.toLevel1(self.arm))
+        JoystickButton(self.stick, 3).whenPressed(MoveArm.toLevel2(self.arm))
+        JoystickButton(self.stick, 2).whenPressed(ResetArm(self.arm))
 
 
     def autonomousInit(self) -> None:
