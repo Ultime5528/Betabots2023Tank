@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import math
 from typing import Optional
-
 import commands2
 import wpilib
 from commands2._impl.button import JoystickButton
@@ -9,8 +8,6 @@ from commands2._impl.button import JoystickButton
 from commands.resetarm import ResetArm
 from commands.movearm import MoveArm
 from subsystems.arm import Arm
-
-
 
 
 class Robot(commands2.TimedCommandRobot):
@@ -35,8 +32,6 @@ class Robot(commands2.TimedCommandRobot):
         if self.autoCommand:
             self.autoCommand.cancel()
 
-    def robotPeriodic(self) -> None:
-        super().robotPeriodic()
 
 if __name__ == "__main__":
     wpilib.run(Robot)

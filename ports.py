@@ -20,3 +20,5 @@ arm_motor = 5
 arm_limitswitch = 0
 
 # PCM
+launcher_piston_backwards = 0
+launcher_piston_forward = 1
