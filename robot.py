@@ -8,6 +8,8 @@ from commands2._impl.button import CommandJoystick, CommandXboxController
 from commands.avancerx import AvancerX
 from commands.drive import Drive
 from commands.launch import Launch
+from commands.movearm import MoveArm
+from commands.resetarm import ResetArm
 from subsystems.drivetrain import Drivetrain
 
 
@@ -27,9 +29,9 @@ class Robot(commands2.TimedCommandRobot):
 
     def setupButtons(self):
         self.xboxremote.button(10).onTrue(Launch(self.lauch))
-        self.xboxremote.button(4).onTrue(#monter)
-        self.xboxremote.button(1).onTrue(#zéro)
-        self.xboxremote.button(2).onTrue(#millieu)
+        self.xboxremote.button(4).onTrue(MoveArm(self.tolevel2))
+        self.xboxremote.button(1).onTrue(ResetArm(self.resetarm))
+        self.xboxremote.button(2).onTrue(MoveArm(self.tolevel1))
     def autonomousInit(self) -> None:
         self.autoCommand: commands2.CommandBase = self.autoChooser.getSelected()
         if self.autoCommand:
