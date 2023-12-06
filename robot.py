@@ -6,6 +6,7 @@ from commands2._impl.button import CommandXboxController
 
 from commands.autonomous.avancerx import AvancerX
 from commands.drive import Drive
+from commands.tournerx import TournerX
 from subsystems.drivetrain import Drivetrain
 
 
@@ -21,7 +22,10 @@ class Robot(commands2.TimedCommandRobot):
         self.autoCommand: Optional[commands2.CommandBase] = None
 
         wpilib.SmartDashboard.putData("AvancerX", AvancerX(self.drivetrain, 0.5, 0.75))
-        
+        wpilib.SmartDashboard.putData("TournerX", TournerX(self.drivetrain, 0.5, 0.75))
+
+
+
     def autonomousInit(self) -> None:
         self.autoCommand: commands2.CommandBase = self.autoChooser.getSelected()
         if self.autoCommand:
