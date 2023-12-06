@@ -13,6 +13,6 @@ class AutonomousYellow(commands2.SequentialCommandGroup):
     def __init__(self, arm: Arm, drivetrain: Drivetrain, launcher: Launcher):
         super().__init__(
             AutonomousFirstSteps(arm, drivetrain, launcher),
-            #tournerX(drivetrain)
+            tournerX(drivetrain, -90, 1),
             AvancerX(drivetrain, 1, 1)
         )
