@@ -6,7 +6,6 @@ from utils.safecommand import SafeCommand
 
 class TournerX(SafeCommand):
     def __init__(self, drive: Drivetrain, angle: float, speed: float):
-        self.setName("TournerX")
         super().__init__()
         self.angle = angle
         self.drive = drive
