@@ -6,7 +6,7 @@ from commands2._impl.button import CommandXboxController
 
 from commands.autonomous.avancerx import AvancerX
 from commands.drive import Drive
-from commands.tournerx import TournerX
+from commands.autonomous.tournerx import TournerX
 from subsystems.drivetrain import Drivetrain
 
 
