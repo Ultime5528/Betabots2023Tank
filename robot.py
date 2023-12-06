@@ -7,6 +7,7 @@ from commands2._impl.button import CommandJoystick, CommandXboxController
 
 from commands.avancerx import AvancerX
 from commands.drive import Drive
+from commands.launch import Launch
 from subsystems.drivetrain import Drivetrain
 
 
@@ -22,7 +23,13 @@ class Robot(commands2.TimedCommandRobot):
         self.autoCommand: Optional[commands2.CommandBase] = None
 
         wpilib.SmartDashboard.putData("AvancerX", AvancerX(self.drivetrain, 0.5, 0.75))
-        
+
+
+    def setupButtons(self):
+        self.xboxremote.button(10).onTrue(Launch(self.lauch))
+        self.xboxremote.button(4).onTrue(#monter)
+        self.xboxremote.button(1).onTrue(#zéro)
+        self.xboxremote.button(2).onTrue(#millieu)
     def autonomousInit(self) -> None:
         self.autoCommand: commands2.CommandBase = self.autoChooser.getSelected()
         if self.autoCommand:
