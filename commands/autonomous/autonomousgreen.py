@@ -1,10 +1,9 @@
 import commands2
 
-from commands.autonomousfirststeps import AutonomousFirstSteps
+from commands.autonomous.autonomousfirststeps import AutonomousFirstSteps
 #from commands.tournerX import TournerX
 from avancerx import AvancerX
 from subsystems.arm import Arm
-from commands.resetarm import ResetArm
 from subsystems.launcher import Launcher
 
 from subsystems.drivetrain import Drivetrain

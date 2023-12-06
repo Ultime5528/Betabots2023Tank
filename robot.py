@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-import math
 from typing import Optional
 import commands2
 import wpilib
-from commands2._impl.button import CommandJoystick, CommandXboxController
+from commands2._impl.button import CommandXboxController
 
-from commands.avancerx import AvancerX
+from commands.autonomous.avancerx import AvancerX
 from commands.drive import Drive
 from subsystems.drivetrain import Drivetrain
 
