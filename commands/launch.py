@@ -1,15 +1,15 @@
 import commands2
 
-from commands.extendlauncher import ExtendLauncher
+from commands.extend import ExtendStrong
 from subsystems.launcher import Launcher
-from commands.retractlauncher import RetractLauncher
+from commands.retract import Retract
 
 
 class Launch(commands2.SequentialCommandGroup):
     def __init__(self, launcher: Launcher):
         super().__init__(
-            ExtendLauncher(launcher),
+            ExtendStrong(launcher),
             commands2.WaitCommand(0.1),
-            RetractLauncher(launcher)
+            Retract(launcher)
         )
 

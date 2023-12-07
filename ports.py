@@ -18,5 +18,7 @@ Order port numbers, ex:
 # DIO
 
 # PCM
-launcher_piston_backwards = 0
-launcher_piston_forward = 1
+launcher_piston_weak_backwards = 0
+launcher_piston_weak_forward = 1
+launcher_piston_strong_backwards = 2
+launcher_piston_strong_forward = 3
