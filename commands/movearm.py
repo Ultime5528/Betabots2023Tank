@@ -5,7 +5,6 @@ from subsystems.arm import Arm
 from utils.property import autoproperty, asCallable
 
 
-#this command aims for the middle flowers
 class MoveArm(SafeCommand):
     threshold = autoproperty(0.1)
 
@@ -46,8 +45,8 @@ class MoveArm(SafeCommand):
 
 class _ClassProperties:
     # Elevator Properties #
-    level1_setpoint = autoproperty(10.0, subtable=MoveArm.__name__)
-    level2_setpoint = autoproperty(20.0, subtable=MoveArm.__name__)
+    level1_setpoint = autoproperty(-20.0, subtable=MoveArm.__name__)
+    level2_setpoint = autoproperty(-10.0, subtable=MoveArm.__name__)
 
 
 properties = _ClassProperties()

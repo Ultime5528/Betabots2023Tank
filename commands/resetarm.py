@@ -9,10 +9,10 @@ class ResetArm(SafeCommand):
         self.addRequirements(self.arm)
 
     def execute(self):
-        self.arm.moveDown()
+        self.arm.moveUp()
 
     def isFinished(self) -> bool:
-        return self.arm.is_down()
+        return self.arm.is_at_limit_switch()
 
     def end(self, interrupted: bool):
         self.arm.resetEncoderPosition()

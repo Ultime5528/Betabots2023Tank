@@ -33,7 +33,7 @@ class Arm(SafeSubsystem):
     def stop(self):
         self.motor.stopMotor()
 
-    def is_down(self):
+    def is_at_limit_switch(self):
         return self.switch.get()
 
     def get_position(self):

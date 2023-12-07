@@ -7,27 +7,31 @@ from commands2._impl.button import CommandXboxController
 
 from commands.avancerx import AvancerX
 from commands.drive import Drive
+from commands.extend import ExtendStrong, ExtendWeak
 from commands.launch import Launch
 from commands.movearm import MoveArm
 from commands.resetarm import ResetArm
 from subsystems.arm import Arm
-from subsystems.drivetrain import Drivetrain
 from subsystems.launcher import Launcher
+from subsystems.drivetrain import Drivetrain
 
 
 class Robot(commands2.TimedCommandRobot):
     def __init__(self):
         super().__init__()
         self.xboxremote = CommandXboxController(0)
-        self.arm = Arm()
-
         self.launcher = Launcher()
         self.drivetrain = Drivetrain()
         self.drivetrain.setDefaultCommand(Drive(self.drivetrain, self.xboxremote))
-        
         self.autoChooser = wpilib.SendableChooser()
         self.autoCommand: Optional[commands2.CommandBase] = None
 
+        self.arm = Arm()
+        JoystickButton(self.stick, 1).whenPressed(MoveArm.toLevel1(self.arm))
+        JoystickButton(self.stick, 3).whenPressed(MoveArm.toLevel2(self.arm))
+        JoystickButton(self.stick, 2).whenPressed(ResetArm(self.arm))
+        wpilib.SmartDashboard.putData("ExtendStrong", ExtendStrong(self.launcher))
+        wpilib.SmartDashboard.putData("ExtendWeak", ExtendWeak(self.launcher))
         self.setupButtons()
 
         wpilib.SmartDashboard.putData("AvancerX", AvancerX(self.drivetrain, 0.5, 0.75))
