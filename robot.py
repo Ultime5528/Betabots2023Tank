@@ -3,7 +3,7 @@ import math
 from typing import Optional
 import commands2
 import wpilib
-from commands2._impl.button import CommandXboxController
+from commands2.button import CommandXboxController
 
 from commands.avancerx import AvancerX
 from commands.drive import Drive
@@ -20,21 +20,20 @@ class Robot(commands2.TimedCommandRobot):
     def __init__(self):
         super().__init__()
         self.xboxremote = CommandXboxController(0)
+
+        self.arm = Arm()
         self.launcher = Launcher()
         self.drivetrain = Drivetrain()
         self.drivetrain.setDefaultCommand(Drive(self.drivetrain, self.xboxremote))
+
         self.autoChooser = wpilib.SendableChooser()
         self.autoCommand: Optional[commands2.CommandBase] = None
 
-        self.arm = Arm()
-        JoystickButton(self.stick, 1).whenPressed(MoveArm.toLevel1(self.arm))
-        JoystickButton(self.stick, 3).whenPressed(MoveArm.toLevel2(self.arm))
-        JoystickButton(self.stick, 2).whenPressed(ResetArm(self.arm))
         wpilib.SmartDashboard.putData("ExtendStrong", ExtendStrong(self.launcher))
         wpilib.SmartDashboard.putData("ExtendWeak", ExtendWeak(self.launcher))
-        self.setupButtons()
-
         wpilib.SmartDashboard.putData("AvancerX", AvancerX(self.drivetrain, 0.5, 0.75))
+
+        self.setupButtons()
 
     def setupButtons(self):
         self.xboxremote.button(10).onTrue(Launch(self.launcher))
