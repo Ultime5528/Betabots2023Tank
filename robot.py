@@ -1,24 +1,27 @@
 #!/usr/bin/env python3
-import math
 from typing import Optional
+
 import commands2
 import wpilib
 from commands2.button import CommandXboxController
 
-from commands.avancerx import AvancerX
 from commands.drive import Drive
 from commands.extend import ExtendStrong, ExtendWeak
 from commands.launch import Launch
 from commands.movearm import MoveArm
 from commands.resetarm import ResetArm
 from subsystems.arm import Arm
-from subsystems.launcher import Launcher
 from subsystems.drivetrain import Drivetrain
+from subsystems.launcher import Launcher
 
 
 class Robot(commands2.TimedCommandRobot):
     def __init__(self):
         super().__init__()
+        wpilib.LiveWindow.enableAllTelemetry()
+        wpilib.LiveWindow.setEnabled(True)
+        wpilib.DriverStation.silenceJoystickConnectionWarning(True)
+
         self.xboxremote = CommandXboxController(0)
 
         self.arm = Arm()
@@ -31,7 +34,6 @@ class Robot(commands2.TimedCommandRobot):
 
         wpilib.SmartDashboard.putData("ExtendStrong", ExtendStrong(self.launcher))
         wpilib.SmartDashboard.putData("ExtendWeak", ExtendWeak(self.launcher))
-        wpilib.SmartDashboard.putData("AvancerX", AvancerX(self.drivetrain, 0.5, 0.75))
 
         self.setupButtons()
 

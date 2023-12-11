@@ -1,10 +1,8 @@
 from typing import Callable
 
-import wpiutil
-
-from utils.safecommand import SafeCommand
 from subsystems.arm import Arm
-from utils.property import autoproperty, asCallable, defaultSetter
+from utils.property import autoproperty, asCallable
+from utils.safecommand import SafeCommand
 
 
 class MoveArm(SafeCommand):
@@ -43,6 +41,7 @@ class MoveArm(SafeCommand):
 
     def isBetweenValues(self, minInterval, maxInterval, value):
         return value >= minInterval and value <= maxInterval
+
 
 class _ClassProperties:
     # Elevator Properties #

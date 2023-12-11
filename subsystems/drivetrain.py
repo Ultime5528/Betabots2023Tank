@@ -1,8 +1,7 @@
-from wpilib import RobotController
-
 import rev
 import wpilib
 import wpilib.drive
+
 from utils.safesubsystem import SafeSubsystem
 from utils.sparkmaxutils import configureLeader, configureFollower
 
@@ -25,7 +24,6 @@ class Drivetrain(SafeSubsystem):
 
         self._drive = wpilib.drive.DifferentialDrive(self._motor_left, self._motor_right)
         self.addChild("DifferentialDrive", self._drive)
-        wpilib.SmartDashboard.putData("Drive", self._drive)
 
     def drive(self, forward: float, turn: float) -> None:
         self._drive.arcadeDrive(forward, turn)

@@ -1,13 +1,14 @@
+import rev
 import wpilib
+import wpilib.simulation
 import wpiutil
 from wpilib import RobotBase
-import wpilib.simulation
-from utils.safesubsystem import SafeSubsystem
-import rev
+
 import ports
+from utils.property import autoproperty, defaultSetter
+from utils.safesubsystem import SafeSubsystem
 from utils.sparkmaxsim import SparkMaxSim
 from utils.sparkmaxutils import configureLeader
-from utils.property import autoproperty, defaultSetter
 
 
 class Arm(SafeSubsystem):
