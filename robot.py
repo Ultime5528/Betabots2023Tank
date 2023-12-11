@@ -6,13 +6,13 @@ import wpilib
 from commands2.button import CommandXboxController
 
 from commands.autonomous.avancerx import AvancerX
+from commands.autonomous.tournerx import TournerX
 from commands.drive import Drive
 from commands.extend import ExtendStrong, ExtendWeak
 from commands.launch import Launch
 from commands.movearm import MoveArm
 from commands.resetarm import ResetArm
 from subsystems.arm import Arm
-from commands.autonomous.tournerx import TournerX
 from subsystems.drivetrain import Drivetrain
 from subsystems.launcher import Launcher
 
