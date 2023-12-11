@@ -1,8 +1,8 @@
 from typing import Callable
 
-from utils.safecommand import SafeCommand
 from subsystems.arm import Arm
 from utils.property import autoproperty, asCallable
+from utils.safecommand import SafeCommand
 
 
 class MoveArm(SafeCommand):

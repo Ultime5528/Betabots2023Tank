@@ -1,5 +1,5 @@
-from utils.safecommand import SafeCommand
 from subsystems.arm import Arm
+from utils.safecommand import SafeCommand
 
 
 class ResetArm(SafeCommand):
