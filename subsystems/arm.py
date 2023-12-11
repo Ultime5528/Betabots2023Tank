@@ -1,17 +1,19 @@
-import wpilib
-from wpilib import RobotBase
-import wpilib.simulation
-from utils.safesubsystem import SafeSubsystem
 import rev
+import wpilib
+import wpilib.simulation
+import wpiutil
+from wpilib import RobotBase
+
 import ports
+from utils.property import autoproperty, defaultSetter
+from utils.safesubsystem import SafeSubsystem
 from utils.sparkmaxsim import SparkMaxSim
 from utils.sparkmaxutils import configureLeader
-from utils.property import autoproperty
 
 
 class Arm(SafeSubsystem):
-    speed_up = autoproperty(1)
-    speed_down = autoproperty(-1)
+    speed_up = autoproperty(1.0)
+    speed_down = autoproperty(-1.0)
 
     def __init__(self):
         super().__init__()
@@ -34,7 +36,7 @@ class Arm(SafeSubsystem):
         self.motor.stopMotor()
 
     def is_down(self):
-        return self.switch.get()
+        return not self.switch.get()
 
     def get_position(self):
         return self.encoder.getPosition()
@@ -46,4 +48,6 @@ class Arm(SafeSubsystem):
         self.sim_motor.setVelocity(self.motor.get())
         self.sim_motor.setPosition(self.sim_motor.getPosition() + self.motor.get())
 
-
+    def initSendable(self, builder: wpiutil.SendableBuilder) -> None:
+        super().initSendable(builder)
+        builder.addDoubleProperty("Position", self.get_position, defaultSetter)
