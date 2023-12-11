@@ -36,7 +36,7 @@ class Robot(commands2.TimedCommandRobot):
         self.setupButtons()
 
     def setupButtons(self):
-        self.xboxremote.button(10).onTrue(Launch(self.launcher))
+        self.xboxremote.button(6).onTrue(Launch(self.launcher))
         self.xboxremote.button(4).onTrue(MoveArm.toLevel2(self.arm))
         self.xboxremote.button(1).onTrue(ResetArm(self.arm))
         self.xboxremote.button(2).onTrue(MoveArm.toLevel1(self.arm))

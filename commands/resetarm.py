@@ -1,3 +1,4 @@
+from utils.property import autoproperty
 from utils.safecommand import SafeCommand
 from subsystems.arm import Arm
 
