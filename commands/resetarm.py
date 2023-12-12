@@ -12,8 +12,9 @@ class ResetArm(SafeCommand):
         self.arm.moveUp()
 
     def isFinished(self) -> bool:
-        return self.arm.is_at_limit_switch()
+        return self.arm.is_up()
 
     def end(self, interrupted: bool):
-        self.arm.resetEncoderPosition()
         self.arm.stop()
+        if not interrupted:
+            self.arm.resetEncoderPosition()

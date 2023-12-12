@@ -38,10 +38,12 @@ class Robot(commands2.TimedCommandRobot):
         self.setupButtons()
 
     def setupButtons(self):
-        self.xboxremote.button(6).onTrue(Launch(self.launcher))
-        self.xboxremote.button(4).onTrue(MoveArm.toLevel2(self.arm))
-        self.xboxremote.button(1).onTrue(ResetArm(self.arm))
-        self.xboxremote.button(2).onTrue(MoveArm.toLevel1(self.arm))
+        self.xboxremote.button(5).onTrue(Launch(self.launcher, "weak"))
+        self.xboxremote.button(6).onTrue(Launch(self.launcher, "strong"))
+        self.xboxremote.button(7).onTrue(ResetArm(self.arm))
+        self.xboxremote.button(1).onTrue(MoveArm.toLevel1(self.arm))
+        self.xboxremote.button(2).onTrue(MoveArm.toLevel2(self.arm))
+        self.xboxremote.button(4).onTrue(MoveArm.toLevel3(self.arm))
 
     def autonomousInit(self) -> None:
         self.autoCommand: commands2.CommandBase = self.autoChooser.getSelected()
