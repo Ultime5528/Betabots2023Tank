@@ -6,10 +6,10 @@ import wpilib
 from commands2.button import CommandXboxController
 
 from commands.drive import Drive
-from commands.extend import ExtendStrong, ExtendWeak
+from commands.extend import ExtendStrong
 from commands.launch import Launch
 from commands.movearm import MoveArm
-from commands.resetarm import ResetArm
+from commands.resetarm import ResetProtocol
 from subsystems.arm import Arm
 from subsystems.drivetrain import Drivetrain
 from subsystems.launcher import Launcher
@@ -33,14 +33,12 @@ class Robot(commands2.TimedCommandRobot):
         self.autoCommand: Optional[commands2.CommandBase] = None
 
         wpilib.SmartDashboard.putData("ExtendStrong", ExtendStrong(self.launcher))
-        wpilib.SmartDashboard.putData("ExtendWeak", ExtendWeak(self.launcher))
 
         self.setupButtons()
 
     def setupButtons(self):
-        self.xboxremote.button(5).onTrue(Launch(self.launcher, "weak"))
-        self.xboxremote.button(6).onTrue(Launch(self.launcher, "strong"))
-        self.xboxremote.button(7).onTrue(ResetArm(self.arm))
+        self.xboxremote.button(6).onTrue(Launch(self.launcher))
+        self.xboxremote.button(7).onTrue(ResetProtocol(self.arm))
         self.xboxremote.button(1).onTrue(MoveArm.toLevel1(self.arm))
         self.xboxremote.button(2).onTrue(MoveArm.toLevel2(self.arm))
         self.xboxremote.button(4).onTrue(MoveArm.toLevel3(self.arm))
