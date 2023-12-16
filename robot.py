@@ -23,7 +23,7 @@ class Robot(commands2.TimedCommandRobot):
         wpilib.DriverStation.silenceJoystickConnectionWarning(True)
 
         self.xboxremote = CommandXboxController(0)
-        self.stick = wpilib.Joystick(1)
+        self.stick = commands2.button.CommandJoystick(1)
 
         self.arm = Arm()
         self.launcher = Launcher()
@@ -38,12 +38,15 @@ class Robot(commands2.TimedCommandRobot):
         self.setupButtons()
 
     #copilote
+
     def setupButtons(self):
         self.stick.button(1).onTrue(Launch(self.launcher))
-        self.stick.button(8).onTrue(ResetProtocol(self.arm))
-        self.stick.button(5).onTrue(MoveArm.toLevel1(self.arm))
-        self.stick.button(3).onTrue(MoveArm.toLevel2(self.arm))
-        self.stick.button(4).onTrue(MoveArm.toLevel3(self.arm))
+        #self.stick.button(8).onTrue(ResetProtocol(self.arm))
+        #self.stick.button(5).onTrue(MoveArm.toLevel1(self.arm))
+        #self.stick.button(3).onTrue(MoveArm.toLevel2(self.arm))
+        #self.stick.button(4).onTrue(MoveArm.toLevel3(self.arm))
+
+
     def autonomousInit(self) -> None:
         self.autoCommand: commands2.CommandBase = self.autoChooser.getSelected()
         if self.autoCommand:
