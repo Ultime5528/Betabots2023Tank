@@ -7,6 +7,7 @@ from commands2.button import CommandXboxController
 
 from commands.autonomous.avancerx import AvancerX
 from commands.autonomous.tournerx import TournerX
+from commands.autonomous.urgence import BougerUrgence
 from commands.drive import Drive
 from commands.extend import ExtendStrong
 from commands.launch import Launch
@@ -35,6 +36,8 @@ class Robot(commands2.TimedCommandRobot):
         self.autoChooser = wpilib.SendableChooser()
         self.autoCommand: Optional[commands2.CommandBase] = None
 
+        self.autoChooser.addOption("AutoBasic", BougerUrgence(self.drivetrain, 0.5, 1.2, 0))
+
         wpilib.SmartDashboard.putData("AvancerX", AvancerX(self.drivetrain, 0.5, 0.75))
         wpilib.SmartDashboard.putData("TournerX", TournerX(self.drivetrain, 0.5, 0.75))
         wpilib.SmartDashboard.putData("ExtendStrong", ExtendStrong(self.launcher))
@@ -45,6 +48,7 @@ class Robot(commands2.TimedCommandRobot):
 
     def setupButtons(self):
         self.stick.button(1).onTrue(Launch(self.launcher))
+        #self.xboxremote.button(1).onTrue(BougerUrgence(self.drivetrain, 0.4, 1.2, 0.5))
         #self.stick.button(8).onTrue(ResetProtocol(self.arm))
         #self.stick.button(5).onTrue(MoveArm.toLevel1(self.arm))
         #self.stick.button(3).onTrue(MoveArm.toLevel2(self.arm))
@@ -59,6 +63,7 @@ class Robot(commands2.TimedCommandRobot):
     def teleopInit(self) -> None:
         if self.autoCommand:
             self.autoCommand.cancel()
+            
 
 
 if __name__ == "__main__":

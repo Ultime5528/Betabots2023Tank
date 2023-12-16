@@ -1,17 +1,18 @@
 import wpilib
 
-from property import autoproperty
-from safecommand import SafeCommand
+from utils.property import autoproperty
+from utils.safecommand import SafeCommand
 from subsystems.drivetrain import Drivetrain
 
 
 class BougerUrgence(SafeCommand):
 
-    def __init__(self, drivetrain: Drivetrain, speed: float, duration: float):
+    def __init__(self, drivetrain: Drivetrain, speed: float, duration: float, rotation: float):
         super().__init__()
         self.drivetrain = drivetrain
         self.speed = speed
         self.duration = duration
+        self.rotation = rotation
         self.timer = wpilib.Timer()
         self.addRequirements(self.drivetrain)
 
@@ -20,7 +21,7 @@ class BougerUrgence(SafeCommand):
         self.timer.start()
 
     def execute(self) -> None:
-        self.drivetrain.drive(self.speed, 0)
+        self.drivetrain.drive(self.speed, self.rotation)
 
     def isFinished(self) -> bool:
         return self.timer.get() >= self.duration
