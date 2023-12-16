@@ -20,6 +20,12 @@ class MoveArm(SafeCommand):
         cmd.setName(cmd.getName() + ".toLevel2")
         return cmd
 
+    @classmethod
+    def toLevel3(cls, arm: Arm):
+        cmd = cls(arm, lambda: properties.level3_setpoint)
+        cmd.setName(cmd.getName() + ".toLevel3")
+        return cmd
+
     def __init__(self, arm: Arm, setpoint: Callable[[], float]):
         super().__init__()
         self.arm = arm
@@ -27,10 +33,13 @@ class MoveArm(SafeCommand):
         self.addRequirements(self.arm)
 
     def execute(self):
-        if self.setpoint() < self.arm.get_position():
+        if self.isHigherThanNeeded():
             self.arm.moveDown()
         else:
             self.arm.moveUp()
+
+    def isHigherThanNeeded(self):
+        return self.setpoint() > self.arm.get_position()
 
     def isFinished(self) -> bool:
         return self.isBetweenValues(self.setpoint() - self.threshold, self.setpoint() + self.threshold,
@@ -45,8 +54,9 @@ class MoveArm(SafeCommand):
 
 class _ClassProperties:
     # Elevator Properties #
-    level1_setpoint = autoproperty(-20.0, subtable=MoveArm.__name__)
-    level2_setpoint = autoproperty(-10.0, subtable=MoveArm.__name__)
+    level1_setpoint = autoproperty(20.0, subtable=MoveArm.__name__)
+    level2_setpoint = autoproperty(10.0, subtable=MoveArm.__name__)
+    level3_setpoint = autoproperty(1.0, subtable=MoveArm.__name__)
 
 
 properties = _ClassProperties()

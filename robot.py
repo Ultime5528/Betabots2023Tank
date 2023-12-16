@@ -5,11 +5,13 @@ import commands2
 import wpilib
 from commands2.button import CommandXboxController
 
+from commands.autonomous.avancerx import AvancerX
+from commands.autonomous.tournerx import TournerX
 from commands.drive import Drive
-from commands.extend import ExtendStrong, ExtendWeak
+from commands.extend import ExtendStrong
 from commands.launch import Launch
 from commands.movearm import MoveArm
-from commands.resetarm import ResetArm
+from commands.resetarm import ResetProtocol
 from subsystems.arm import Arm
 from subsystems.drivetrain import Drivetrain
 from subsystems.launcher import Launcher
@@ -23,6 +25,7 @@ class Robot(commands2.TimedCommandRobot):
         wpilib.DriverStation.silenceJoystickConnectionWarning(True)
 
         self.xboxremote = CommandXboxController(0)
+        self.stick = commands2.button.CommandJoystick(1)
 
         self.arm = Arm()
         self.launcher = Launcher()
@@ -32,16 +35,21 @@ class Robot(commands2.TimedCommandRobot):
         self.autoChooser = wpilib.SendableChooser()
         self.autoCommand: Optional[commands2.CommandBase] = None
 
+        wpilib.SmartDashboard.putData("AvancerX", AvancerX(self.drivetrain, 0.5, 0.75))
+        wpilib.SmartDashboard.putData("TournerX", TournerX(self.drivetrain, 0.5, 0.75))
         wpilib.SmartDashboard.putData("ExtendStrong", ExtendStrong(self.launcher))
-        wpilib.SmartDashboard.putData("ExtendWeak", ExtendWeak(self.launcher))
 
         self.setupButtons()
 
+    #copilote
+
     def setupButtons(self):
-        self.xboxremote.button(6).onTrue(Launch(self.launcher))
-        self.xboxremote.button(4).onTrue(MoveArm.toLevel2(self.arm))
-        self.xboxremote.button(1).onTrue(ResetArm(self.arm))
-        self.xboxremote.button(2).onTrue(MoveArm.toLevel1(self.arm))
+        self.stick.button(1).onTrue(Launch(self.launcher))
+        #self.stick.button(8).onTrue(ResetProtocol(self.arm))
+        #self.stick.button(5).onTrue(MoveArm.toLevel1(self.arm))
+        #self.stick.button(3).onTrue(MoveArm.toLevel2(self.arm))
+        #self.stick.button(4).onTrue(MoveArm.toLevel3(self.arm))
+
 
     def autonomousInit(self) -> None:
         self.autoCommand: commands2.CommandBase = self.autoChooser.getSelected()

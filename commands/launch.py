@@ -12,4 +12,3 @@ class Launch(commands2.SequentialCommandGroup):
             commands2.WaitCommand(0.1),
             Retract(launcher)
         )
-

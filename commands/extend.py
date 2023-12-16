@@ -25,8 +25,3 @@ class ExtendStrong(SafeCommand):
 
     def end(self, interrupted: bool) -> None:
         self.launcher.stop()
-
-
-class ExtendWeak(ExtendStrong):
-    def execute(self) -> None:
-        self.launcher.extend_weak()

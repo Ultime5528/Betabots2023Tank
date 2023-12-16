@@ -20,8 +20,9 @@ class Arm(SafeSubsystem):
 
         self.motor = rev.CANSparkMax(ports.arm_motor, rev.CANSparkMax.MotorType.kBrushless)
         configureLeader(self.motor, "brake")
-        self.switch = wpilib.DigitalInput(ports.arm_limitswitch)
         self.encoder = self.motor.getEncoder()
+        self.switch = wpilib.DigitalInput(ports.arm_limitswitch)
+        self.addChild("switch", self.switch)
 
         if RobotBase.isSimulation():
             self.sim_motor = SparkMaxSim(self.motor)
@@ -35,14 +36,14 @@ class Arm(SafeSubsystem):
     def stop(self):
         self.motor.stopMotor()
 
-    def is_down(self):
+    def is_up(self):
         return not self.switch.get()
 
     def get_position(self):
         return self.encoder.getPosition()
 
     def resetEncoderPosition(self):
-        self.encoder.setPosition(0)
+        self.encoder.setPosition(0.0)
 
     def simulationPeriodic(self):
         self.sim_motor.setVelocity(self.motor.get())
@@ -51,3 +52,4 @@ class Arm(SafeSubsystem):
     def initSendable(self, builder: wpiutil.SendableBuilder) -> None:
         super().initSendable(builder)
         builder.addDoubleProperty("Position", self.get_position, defaultSetter)
+        builder.addBooleanProperty("is_up", self.is_up, defaultSetter)
