@@ -5,6 +5,7 @@ import commands2
 import wpilib
 from commands2.button import CommandXboxController
 
+from commands.autonomous.autourgence import AutoUrgence
 from commands.autonomous.avancerx import AvancerX
 from commands.autonomous.tournerx import TournerX
 from commands.autonomous.urgence import BougerUrgence
@@ -63,6 +64,12 @@ class Robot(commands2.TimedCommandRobot):
     def teleopInit(self) -> None:
         if self.autoCommand:
             self.autoCommand.cancel()
+
+    def setupDashboard(self):
+
+        self.autoCommand = None
+        self.autoChooser.addOption("atterissage", BougerUrgence(self.drivetrain, 0.5, 1.2, 0))
+        self.autoChooser.addOption("autoComplet", AutoUrgence(self.drivetrain, self.launcher))
             
 
 
