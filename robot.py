@@ -5,6 +5,8 @@ import commands2
 import wpilib
 from commands2.button import CommandXboxController
 
+from commands.autonomous.avancerx import AvancerX
+from commands.autonomous.tournerx import TournerX
 from commands.drive import Drive
 from commands.extend import ExtendStrong
 from commands.launch import Launch
@@ -33,6 +35,8 @@ class Robot(commands2.TimedCommandRobot):
         self.autoChooser = wpilib.SendableChooser()
         self.autoCommand: Optional[commands2.CommandBase] = None
 
+        wpilib.SmartDashboard.putData("AvancerX", AvancerX(self.drivetrain, 0.5, 0.75))
+        wpilib.SmartDashboard.putData("TournerX", TournerX(self.drivetrain, 0.5, 0.75))
         wpilib.SmartDashboard.putData("ExtendStrong", ExtendStrong(self.launcher))
 
         self.setupButtons()
